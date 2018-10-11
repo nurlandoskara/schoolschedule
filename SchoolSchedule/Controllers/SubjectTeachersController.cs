@@ -18,18 +18,13 @@ namespace SchoolSchedule.Controllers
             Context = new ModelContainer();
         }
 
-        public override ActionResult Index()
+        public ActionResult Index()
         {
             var entities = Context.SubjectTeachers.Include(x => x.Subject).Include(x => x.Teacher);
             var model = new SubjectTeacherViewModel
             {
                 ClassYear = 0,
-                SubjectTeachers = entities,
-                ClassYearses = Enum.GetValues(typeof(ClassYears)).Cast<ClassYears>().Select(v => new SelectListItem
-                {
-                    Text = v.ToString(),
-                    Value = ((int)v).ToString()
-                }).ToList()
+                SubjectTeachers = entities
             };
             return View("Index", model);
         }
@@ -41,12 +36,7 @@ namespace SchoolSchedule.Controllers
             var model = new SubjectTeacherViewModel
             {
                 ClassYear = classYear,
-                SubjectTeachers = entities,
-                ClassYearses = Enum.GetValues(typeof(ClassYears)).Cast<ClassYears>().Select(v => new SelectListItem
-                {
-                    Text = v.ToString(),
-                    Value = ((int) v).ToString()
-                }).ToList()
+                SubjectTeachers = entities
             };
             return View("Index", model);
         }

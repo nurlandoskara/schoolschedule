@@ -11,5 +11,6 @@ namespace SchoolSchedule.Models
         [Required]
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
+        public ClassYears ClassYear { get; set; }
     }
 }

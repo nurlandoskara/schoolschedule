@@ -22,16 +22,6 @@ namespace SchoolSchedule.Controllers
             var lessons = Context.Lessons.Where(x => x.SubjectGroup.GroupId == id).Include(l => l.SubjectGroup).Include(l => l.SubjectTeacher);
             return View(lessons.ToList());
         }
-        
-        public override ActionResult Details(int id)
-        {
-            var lesson = Context.Lessons.Find(id);
-            if (lesson == null)
-            {
-                return HttpNotFound();
-            }
-            return View(lesson);
-        }
 
         public ActionResult Create(int id)
         {

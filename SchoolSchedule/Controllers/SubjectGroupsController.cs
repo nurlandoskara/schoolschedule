@@ -18,7 +18,7 @@ namespace SchoolSchedule.Controllers
             Context = new ModelContainer();
         }
 
-        public override ActionResult Index()
+        public ActionResult Index()
         {
             var entities = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group);
             var model = new SubjectGroupViewModel()
