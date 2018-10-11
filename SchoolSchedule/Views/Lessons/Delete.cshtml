@@ -1,0 +1,72 @@
+﻿@model SchoolSchedule.Models.Lesson
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Lesson</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SubjectGroup.Id)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SubjectGroup.Id)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.SubjectTeacher.Id)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SubjectTeacher.Id)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DayOfWeek)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DayOfWeek)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Order)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Order)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.IsDeleted)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>
