@@ -6,7 +6,7 @@
 }
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-                @Html.ActionLink("Create New", "Create", new { ClassYear = Model.ClassYear}, new { @class = "btn btn-success" })
+                @Html.ActionLink("Добавить", "Create", new { ClassYear = Model.ClassYear}, new { @class = "btn btn-success" })
         </div>
         <div class="btn-group mr-2" role="group" aria-label="Second group">
             @using (Html.BeginForm("Index", "Subjects", FormMethod.Post))
@@ -16,18 +16,19 @@
         </div>
     </div>
 
-    <table class="table table-striped ">
+    <table class="table">
         <caption>List of subjects</caption>
-        <thead class="thead-dark">
+        <thead>
             <tr>
                 <th scope="col">#</th>
                 <th>
-                    Subject Name
+                    Название предмета
                 </th>
                 <th>
-                    Class Year
+                    Класс
                 </th>
-                <th>IsDeleted</th>
+                <th>Удален</th>
+                <th>Рекдактирование</th>
             </tr>
         </thead>
         <tbody class="table-hover">

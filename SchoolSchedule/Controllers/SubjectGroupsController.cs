@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SchoolSchedule.Models;
+using SchoolSchedule.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SchoolSchedule.Models;
-using SchoolSchedule.ViewModels;
 
 namespace SchoolSchedule.Controllers
 {
@@ -17,25 +13,13 @@ namespace SchoolSchedule.Controllers
         {
             Context = new ModelContainer();
         }
-
-        public ActionResult Index()
+        
+        public ActionResult IndexByGroup(int? groupId)
         {
-            var entities = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group);
-            var model = new SubjectGroupViewModel()
-            {
-                GroupId = 1,
-                SubjectGroups = entities,
-                Groups = Context.Groups.Where(x => !x.IsDeleted)
-                    .Select(v => new SelectListItem {Text = string.Concat(v.ClassYear,v.ClassLetter), Value = v.Id.ToString()}).ToList()
-            };
-            return View("Index", model);
-        }
-
-        [HttpPost]
-        public ActionResult IndexByGroup(int groupId)
-        {
-            var group = Context.Groups.FirstOrDefault(x => x.Id == groupId);
-            var entities = Context.SubjectGroups.Where(x => x.Subject.ClassYear == group.ClassYear).Include(x => x.Subject).Include(x => x.Group);
+            var entities = (groupId != null)
+                ? Context.SubjectGroups.Where(x => x.GroupId == groupId).Include(x => x.Subject)
+                    .Include(x => x.Group)
+                : Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group);
             var model = new SubjectGroupViewModel()
             {
                 GroupId = groupId,
@@ -46,11 +30,11 @@ namespace SchoolSchedule.Controllers
             return View("Index", model);
         }
 
-        public ActionResult CreateByGroup(int groupId)
+        public ActionResult CreateByGroup(int? groupId)
         {
-            var group = Context.Groups.FirstOrDefault(x => x.Id == groupId);
-            ViewBag.SubjectId = new SelectList(GetSubjects(@group?.ClassYear ?? 0), "Id", "DisplayName");
-            ViewBag.GroupId = groupId;
+            var classYear = Context.Groups.FirstOrDefault(x => x.Id == groupId)?.ClassYear;
+            ViewBag.SubjectId = new SelectList(GetSubjects(classYear), "Id", "DisplayName");
+            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName");
             return View("Create");
         }
 
@@ -66,19 +50,19 @@ namespace SchoolSchedule.Controllers
             }
 
             ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = entity.GroupId;
+            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName", entity.GroupId);
             return View(entity);
         }
 
         public override ActionResult Edit(int id)
         {
-            var entity = Context.SubjectGroups.Include(x => x.Subject).FirstOrDefault(x => x.Id == id);
+            var entity = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group).FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
                 return HttpNotFound();
             }
             ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = entity.GroupId;
+            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName");
             return View(entity);
         }
 
@@ -90,11 +74,23 @@ namespace SchoolSchedule.Controllers
             {
                 Context.Entry(entity).State = EntityState.Modified;
                 Context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexByGroup", new { entity.GroupId });
             }
             ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = entity.GroupId;
+            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName", entity.GroupId);
             return View(entity);
+        }
+
+        public override ActionResult Delete(int id)
+        {
+            var entity = Context.Set<SubjectGroup>().Find(id);
+            if (entity == null)
+            {
+                return HttpNotFound();
+            }
+            entity.IsDeleted = true;
+            Context.SaveChanges();
+            return RedirectToAction("IndexByGroup", new { entity.GroupId });
         }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
+﻿using SchoolSchedule.Models;
+using SchoolSchedule.ViewModels;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using SchoolSchedule.Models;
-using SchoolSchedule.ViewModels;
 
 namespace SchoolSchedule.Controllers
 {
@@ -82,9 +78,9 @@ namespace SchoolSchedule.Controllers
             base.Dispose(disposing);
         }
 
-        public IEnumerable<Subject> GetSubjects(ClassYears classYear)
+        public IEnumerable<Subject> GetSubjects(ClassYears? classYear)
         {
-            return (classYear != 0)?Context.Subjects.Where(x => !x.IsDeleted && x.ClassYear == classYear) : Context.Subjects.Where(x => !x.IsDeleted);
+            return (classYear != null)?Context.Subjects.Where(x => !x.IsDeleted && x.ClassYear == classYear) : Context.Subjects.Where(x => !x.IsDeleted);
         }
 
         public IEnumerable<Teacher> GetTeachers()

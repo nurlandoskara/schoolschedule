@@ -1,39 +1,43 @@
-﻿@model IEnumerable<SchoolSchedule.Models.Teacher>
+﻿@model SchoolSchedule.ViewModels.BaseViewModel<SchoolSchedule.Models.Teacher>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-success" })
+    </div>
+</div>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+<table class="table">
+    <caption>List of teachers</caption>
+    <thead>
         <tr>
+            <th scope="col">#</th>
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
+                Имя
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                Фамилия
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PatronymicName)
+                Отчество
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th></th>
+            <th>Удален</th>
+            <th>Рекдактирование</th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
+    </thead>
+    <tbody class="table-hover">
+    @{var rowNumber = 0;}
+    @foreach (var item in Model.List)
+    {
+        string rowClass;
+        {
+            rowClass = (item.IsDeleted) ? "table-danger" : null;
+            rowNumber++;
+        }
+        <tr class="@rowClass">
+            <th scope="row">@rowNumber</th>
             <td>
                 @Html.DisplayFor(modelItem => item.Firstname)
             </td>
@@ -47,13 +51,10 @@
                 @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+    </tbody>
+</table>

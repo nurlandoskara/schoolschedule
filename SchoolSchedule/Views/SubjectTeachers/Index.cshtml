@@ -1,52 +1,67 @@
 ﻿@model SchoolSchedule.ViewModels.SubjectTeacherViewModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @Html.ActionLink("Добавить", "Create", new { ClassYear = Model.ClassYear }, new { @class = "btn btn-success" })
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        @using (Html.BeginForm("IndexByClass", "SubjectTeachers", FormMethod.Post))
+        {
+            @Html.DropDownListFor(m => Model.ClassYear, Model.ClassYearses, new { onchange = "this.form.submit();", @class = "form-control" })
+        }
+    </div>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-<p>
-    @Html.ActionLink("Add new", "CreateByGroup", new { ClassYear = Model.ClassYear })
-</p>
-<p>
-    @using (Html.BeginForm("IndexByGroup", "SubjectTeachers", FormMethod.Post)) 
-    {
-        <div style="text-align:center">
-            <div class="form-group">
-                @Html.DropDownListFor(m => m.ClassYear, Model.ClassYearses, new { onchange = "this.form.submit();"})
-            </div>
-        </div>
-    }
-</p>
-    <table class="table">
+<table class="table">
+    <caption>List of subjects</caption>
+    <thead>
         <tr>
+            <th scope="col">#</th>
+            <th>
+                Предмет
+            </th>
+            <th>
+                Преподаватель
+            </th>
+            <th>
+                Класс
+            </th>
+            <th>Удален</th>
+            <th>Редактирование</th>
         </tr>
-    
-    @foreach (var item in Model.SubjectTeachers) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject.DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Teacher.DisplayName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-    }
-    
-    </table>
-</body>
-</html>
+    </thead>
+    <tbody class="table-hover">
+        @{var rowNumber = 0;}
+        @foreach (var item in Model.SubjectTeachers)
+        {
+            string rowClass;
+            {
+                rowClass = (item.IsDeleted) ? "table-danger" : null;
+                rowNumber++;
+            }
+            <tr class="@rowClass">
+                <th scope="row">@rowNumber</th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject.ClassYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -353,18 +353,12 @@
     <Content Include="Views\Groups\Edit.cshtml" />
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\SubjectTeachers\Create.cshtml" />
-    <Content Include="Views\SubjectTeachers\Delete.cshtml" />
-    <Content Include="Views\SubjectTeachers\Details.cshtml" />
     <Content Include="Views\SubjectTeachers\Edit.cshtml" />
     <Content Include="Views\SubjectTeachers\Index.cshtml" />
     <Content Include="Views\SubjectGroups\Create.cshtml" />
-    <Content Include="Views\SubjectGroups\Delete.cshtml" />
-    <Content Include="Views\SubjectGroups\Details.cshtml" />
     <Content Include="Views\SubjectGroups\Edit.cshtml" />
     <Content Include="Views\SubjectGroups\Index.cshtml" />
     <Content Include="Views\Lessons\Create.cshtml" />
@@ -385,6 +379,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\BaseBunch\" />
+    <Folder Include="Views\BaseSubject\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
