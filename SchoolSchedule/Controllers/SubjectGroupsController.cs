@@ -18,8 +18,8 @@ namespace SchoolSchedule.Controllers
         {
             var entities = (groupId != null)
                 ? Context.SubjectGroups.Where(x => x.GroupId == groupId).Include(x => x.Subject)
-                    .Include(x => x.Group)
-                : Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group);
+                    .Include(x => x.Group).ToList()
+                : Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group).ToList();
             var model = new SubjectGroupViewModel()
             {
                 GroupId = groupId,

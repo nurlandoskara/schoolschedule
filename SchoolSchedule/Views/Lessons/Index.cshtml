@@ -1,50 +1,67 @@
-﻿@model IEnumerable<SchoolSchedule.Models.Lesson>
+﻿@model SchoolSchedule.ViewModels.LessonViewModel
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @Html.ActionLink("Добавить", "CreateByGroup", new { GroupId = Model.GroupId }, new { @class = "btn btn-success" })
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        @using (Html.BeginForm("IndexByGroup", "Lessons", FormMethod.Post))
+        {
+            @Html.DropDownListFor(m => Model.GroupId, Model.Groups, new { onchange = "this.form.submit();", @class = "form-control" })
+        }
+    </div>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
+<table class="table">
+    <caption>List of subjects</caption>
+    <thead>
         <tr>
+            <th scope="col">#</th>
             <th>
-                @Html.DisplayNameFor(model => model.SubjectGroup.Id)
+                День недели
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SubjectTeacher.Id)
+                Предмет
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DayOfWeek)
+                Преподаватель
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Order)
+                Группа
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
+                Порядок
             </th>
-            <th></th>
+            <th>Удален</th>
+            <th>Редактирование</th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubjectGroup.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubjectTeacher.Id)
-            </td>
+    </thead>
+    <tbody class="table-hover">
+    @{var rowNumber = 0;}
+    @foreach (var item in Model.Lessons)
+    {
+        string rowClass;
+        {
+            rowClass = (item.IsDeleted) ? "table-danger" : null;
+            rowNumber++;
+        }
+        <tr class="@rowClass">
+            <th scope="row">@rowNumber</th>
             <td>
                 @Html.DisplayFor(modelItem => item.DayOfWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectGroup.Subject.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectTeacher.Teacher.DisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectGroup.Group.DisplayName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Order)
@@ -53,13 +70,10 @@
                 @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-    
-    </table>
-</body>
-</html>
+    </tbody>
+</table>

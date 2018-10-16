@@ -24,7 +24,7 @@
             @Html.ActionLink("Преподаватели", "Index", "Teachers", new {area = ""}, new {@class = "nav-item nav-link"})
             @Html.ActionLink("Предметы по учителям", "IndexByClass", "SubjectTeachers", new {area = ""}, new {@class = "nav-item nav-link"})
             @Html.ActionLink("Предметы по группам", "IndexByGroup", "SubjectGroups", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Уроки", "Index", "Lessons", new {area = ""}, new {@class = "nav-item nav-link"})
+            @Html.ActionLink("Уроки", "IndexByGroup", "Lessons", new {area = ""}, new {@class = "nav-item nav-link"})
         </div>
         <span class="navbar-text">
             @Html.Partial("_LoginPartial")

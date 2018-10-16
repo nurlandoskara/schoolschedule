@@ -18,8 +18,8 @@ namespace SchoolSchedule.Controllers
         {
             var entities = (classYear != null)
                 ? Context.SubjectTeachers.Where(x => x.Subject.ClassYear == classYear).Include(x => x.Subject)
-                    .Include(x => x.Teacher)
-                : Context.SubjectTeachers.Include(x => x.Subject).Include(x => x.Teacher);
+                    .Include(x => x.Teacher).ToList()
+                : Context.SubjectTeachers.Include(x => x.Subject).Include(x => x.Teacher).ToList();
             var model = new SubjectTeacherViewModel
             {
                 ClassYear = classYear,

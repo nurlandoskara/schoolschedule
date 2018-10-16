@@ -8,7 +8,7 @@ namespace SchoolSchedule.ViewModels
     public class SubjectTeacherViewModel
     {
         public ClassYears? ClassYear { get; set; }
-        public List<SelectListItem> ClassYearses => EnumHelper.GetClassYears();
+        public List<SelectListItem> ClassYearses => SelectListHelper.GetClassYears();
         public IEnumerable<SubjectTeacher> SubjectTeachers { get; set; }
     }
 }
