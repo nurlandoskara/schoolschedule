@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Controllers
 {
@@ -11,9 +12,11 @@ namespace SchoolSchedule.Controllers
     {
         protected ModelContainer Context;
 
-        public virtual ActionResult Index(ClassYears? classYear)
+        public virtual ActionResult Index(int? classYear)
         {
-            var entities = (classYear != null) ? Context.Set<T>().Where(x => x.ClassYear == classYear).ToList() : Context.Set<T>().ToList();
+            var entities = (classYear != null)
+                ? Context.Set<T>().Where(x => x.ClassYear == classYear).ToList()
+                : Context.Set<T>().ToList();
             var model = new BaseViewModel<T>()
             {
                 ClassYear = classYear,
@@ -22,8 +25,9 @@ namespace SchoolSchedule.Controllers
             return View("Index", model);
         }
 
-        public virtual ActionResult Create(ClassYears? classYear)
+        public virtual ActionResult Create(int? classYear)
         {
+            ViewBag.ClassYear = SelectListHelper.GetClassYears(classYear);
             return View("Create");
         }
 
@@ -31,6 +35,7 @@ namespace SchoolSchedule.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult Create(T entity)
         {
+            ViewBag.ClassYear = SelectListHelper.GetClassYears(entity.ClassYear);
             if (!ModelState.IsValid) return View(entity);
             Context.Set<T>().Add(entity);
             Context.SaveChanges();
@@ -44,6 +49,7 @@ namespace SchoolSchedule.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClassYear = SelectListHelper.GetClassYears(entity.ClassYear);
             return View(entity);
         }
 
@@ -51,6 +57,7 @@ namespace SchoolSchedule.Controllers
         [ValidateAntiForgeryToken]
         public virtual ActionResult Edit(T entity)
         {
+            ViewBag.ClassYear = SelectListHelper.GetClassYears(entity.ClassYear);
             if (!ModelState.IsValid) return View(entity);
             Context.Entry(entity).State = EntityState.Modified;
             Context.SaveChanges();
@@ -78,7 +85,7 @@ namespace SchoolSchedule.Controllers
             base.Dispose(disposing);
         }
 
-        public IEnumerable<Subject> GetSubjects(ClassYears? classYear)
+        public IEnumerable<Subject> GetSubjects(int? classYear)
         {
             return (classYear != null)
                 ? Context.Subjects.Where(x => !x.IsDeleted && x.ClassYear == classYear).ToList()
@@ -99,17 +106,14 @@ namespace SchoolSchedule.Controllers
         {
             var subjectGroups = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group).Where(x => !x.IsDeleted);
             return (groupId != null)
-                ? subjectGroups.Where(x => x.GroupId == groupId)
-                : subjectGroups;
+                ? subjectGroups.Where(x => x.GroupId == groupId).ToList()
+                : subjectGroups.ToList();
         }
 
-        public IEnumerable<SubjectTeacher> GetSubjectTeachers(int? groupId)
+        public IEnumerable<SubjectTeacher> GetSubjectTeachers(int? classYear)
         {
-            var subjects = Context.SubjectGroups.Where(x => !x.IsDeleted);
-            var subjectIds = (groupId != null)
-                ? subjects.Where(x => x.GroupId == groupId).Select(x => x.SubjectId).ToList()
-                : subjects.Select(x => x.SubjectId).ToList();
-            return Context.SubjectTeachers.Where(x => !x.IsDeleted && subjectIds.Contains(x.SubjectId)).Include(x => x.Subject).Include(x => x.Teacher);
+            return Context.SubjectTeachers.Where(x => !x.IsDeleted && x.Subject.ClassYear == classYear)
+                .Include(x => x.Subject).Include(x => x.Teacher).ToList();
         }
     }
 }

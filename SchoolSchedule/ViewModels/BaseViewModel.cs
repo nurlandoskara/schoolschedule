@@ -7,8 +7,8 @@ namespace SchoolSchedule.ViewModels
 {
     public class BaseViewModel<T> where T:BaseDbObject
     {
-        public ClassYears? ClassYear { get; set; }
-        public List<SelectListItem> ClassYearses => SelectListHelper.GetClassYears();
+        public int? ClassYear { get; set; }
+        public SelectList ClassYears => SelectListHelper.GetClassYears(ClassYear);
         public IEnumerable<T> List { get; set; }
     }
 }

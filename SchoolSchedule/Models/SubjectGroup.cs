@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace SchoolSchedule.Models
 {
     public class SubjectGroup : BaseDbObject
     {
+        [Required]
         [ForeignKey("Subject")]
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
 
+        [Required]
         [ForeignKey("Group")]
         public int GroupId { get; set; }
         public Group Group { get; set; }

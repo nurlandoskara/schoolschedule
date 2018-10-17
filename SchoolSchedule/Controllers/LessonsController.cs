@@ -27,15 +27,16 @@ namespace SchoolSchedule.Controllers
             {
                 GroupId = groupId,
                 Lessons = lessons.ToList(),
-                Groups = GetGroups().GetSelectableGroups(groupId)
+                Groups = GetGroups().GetSelectableList(groupId)
             };
             return View("Index", model);
         }
 
         public ActionResult CreateByGroup(int? groupId)
         {
+            var classYear = Context.Groups.Find(groupId)?.ClassYear;
             ViewBag.SubjectGroupId = GetSubjectGroups(groupId).GetSelectableSubjectGroups();
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(groupId).GetSelectableSubjectTeachers();
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(classYear).GetSelectableSubjectTeachers();
             return View("Create");
         }
         
@@ -43,28 +44,28 @@ namespace SchoolSchedule.Controllers
         [ValidateAntiForgeryToken]
         public override ActionResult Create(Lesson entity)
         {
-            var groupId = Context.SubjectGroups.FirstOrDefault(x => x.Id == entity.SubjectGroupId)?.GroupId;
             if (ModelState.IsValid)
             {
                 Context.Lessons.Add(entity);
                 Context.SaveChanges();
+                var groupId = Context.SubjectGroups.Include(x => x.Group).FirstOrDefault(x => x.Id == entity.SubjectGroupId)?.Group.Id;
                 return RedirectToAction("IndexByGroup", new { groupId });
             }
-
-            ViewBag.SubjectGroupId = GetSubjectGroups(groupId).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(groupId).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            
+            ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.Group.Id).GetSelectableSubjectGroups(entity.SubjectGroupId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
         
         public override ActionResult Edit(int id)
         {
-            var entity = Context.Lessons.Include(x => x.SubjectGroup).FirstOrDefault(x => x.Id == id);
+            var entity = Context.Lessons.Include(x => x.SubjectGroup).Include(x => x.SubjectGroup.Group).FirstOrDefault(x => x.Id == id);
             if (entity == null)
             {
                 return HttpNotFound();
             }
             ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.GroupId).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.GroupId).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
         
@@ -72,16 +73,16 @@ namespace SchoolSchedule.Controllers
         [ValidateAntiForgeryToken]
         public override ActionResult Edit(Lesson entity)
         {
-            var groupId = Context.SubjectGroups.FirstOrDefault(x => x.Id == entity.SubjectGroupId)?.GroupId;
             if (ModelState.IsValid)
             {
                 Context.Entry(entity).State = EntityState.Modified;
                 Context.SaveChanges();
-                return RedirectToAction("IndexByGroup", new {groupId});
+                var groupId = Context.SubjectGroups.Include(x => x.Group).FirstOrDefault(x => x.Id == entity.SubjectGroupId)?.Group.Id;
+                return RedirectToAction("IndexByGroup", new { groupId });
             }
 
-            ViewBag.SubjectGroupId = GetSubjectGroups(groupId).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(groupId).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.Group.Id).GetSelectableSubjectGroups(entity.SubjectGroupId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
 

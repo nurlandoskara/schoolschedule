@@ -11,7 +11,7 @@
         <div class="btn-group mr-2" role="group" aria-label="Second group">
             @using (Html.BeginForm("Index", "Subjects", FormMethod.Post))
             {
-                @Html.DropDownListFor(m => Model.ClassYear, Model.ClassYearses, new { onchange = "this.form.submit();", @class = "form-control" })
+                @Html.DropDownListFor(m => Model.ClassYear, Model.ClassYears, new { onchange = "this.form.submit();", @class = "form-control" })
             }
         </div>
     </div>

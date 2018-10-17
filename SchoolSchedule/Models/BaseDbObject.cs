@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SchoolSchedule.Models
 {
@@ -11,6 +7,6 @@ namespace SchoolSchedule.Models
         [Required]
         public int Id { get; set; }
         public bool IsDeleted { get; set; }
-        public ClassYears ClassYear { get; set; }
+        public int ClassYear { get; set; }
     }
 }

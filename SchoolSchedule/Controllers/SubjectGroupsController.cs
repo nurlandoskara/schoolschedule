@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Controllers
 {
@@ -24,8 +25,7 @@ namespace SchoolSchedule.Controllers
             {
                 GroupId = groupId,
                 SubjectGroups = entities,
-                Groups = Context.Groups.Where(x => !x.IsDeleted)
-                    .Select(v => new SelectListItem {Text = string.Concat(v.ClassYear, v.ClassLetter), Value = v.Id.ToString()}).ToList()
+                Groups = GetGroups().GetSelectableList(groupId)
             };
             return View("Index", model);
         }
@@ -33,8 +33,8 @@ namespace SchoolSchedule.Controllers
         public ActionResult CreateByGroup(int? groupId)
         {
             var classYear = Context.Groups.FirstOrDefault(x => x.Id == groupId)?.ClassYear;
-            ViewBag.SubjectId = new SelectList(GetSubjects(classYear), "Id", "DisplayName");
-            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName");
+            ViewBag.SubjectId = GetSubjects(classYear).GetSelectableList();
+            ViewBag.GroupId = GetGroups().GetSelectableList(groupId);
             return View("Create");
         }
 
@@ -49,8 +49,8 @@ namespace SchoolSchedule.Controllers
                 return RedirectToAction("IndexByGroup", new { entity.GroupId});
             }
 
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName", entity.GroupId);
+            ViewBag.SubjectId = GetSubjects(entity.Group.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.GroupId = GetGroups().GetSelectableList(entity.GroupId);
             return View(entity);
         }
 
@@ -61,8 +61,8 @@ namespace SchoolSchedule.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName");
+            ViewBag.SubjectId = GetSubjects(entity.Group.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.GroupId = GetGroups().GetSelectableList(entity.GroupId);
             return View(entity);
         }
 
@@ -76,8 +76,8 @@ namespace SchoolSchedule.Controllers
                 Context.SaveChanges();
                 return RedirectToAction("IndexByGroup", new { entity.GroupId });
             }
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Group.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.GroupId = new SelectList(GetGroups(), "Id", "DisplayName", entity.GroupId);
+            ViewBag.SubjectId = GetSubjects(entity.Group.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.GroupId = GetGroups().GetSelectableList(entity.GroupId);
             return View(entity);
         }
 

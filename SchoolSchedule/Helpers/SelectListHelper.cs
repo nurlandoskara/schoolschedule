@@ -1,26 +1,27 @@
-﻿using System;
+﻿using SchoolSchedule.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using SchoolSchedule.Models;
 
 namespace SchoolSchedule.Helpers
 {
     public static class SelectListHelper
     {
-        public static List<SelectListItem> GetClassYears()
+        public static SelectList GetClassYears(int? selectedValue = null)
         {
-            return Enum.GetValues(typeof(ClassYears)).Cast<ClassYears>().Select(v => new SelectListItem
+            var classYears = new List<int> {1,2,3,4,5,6,7,8,9,10,11};
+            return new SelectList(classYears, selectedValue);
+            /*
+            return classYears.Select(v => new SelectListItem
             {
                 Text = v.ToString(),
                 Value = ((int) v).ToString()
             }).ToList();
+            */
         }
 
-        public static SelectList GetSelectableGroups(this IEnumerable<Group> groups, int? selectedValue = null)
+        public static SelectList GetSelectableList<T>(this IEnumerable<T> list, int? selectedValue = null)
         {
-            return new SelectList(groups, "Id", "DisplayName", selectedValue);
+            return new SelectList(list, "Id", "DisplayName", selectedValue);
         }
 
         public static SelectList GetSelectableSubjectTeachers(this IEnumerable<SubjectTeacher> subjectTeachers, int? selectedValue = null)

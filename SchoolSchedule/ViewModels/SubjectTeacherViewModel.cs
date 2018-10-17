@@ -7,8 +7,8 @@ namespace SchoolSchedule.ViewModels
 {
     public class SubjectTeacherViewModel
     {
-        public ClassYears? ClassYear { get; set; }
-        public List<SelectListItem> ClassYearses => SelectListHelper.GetClassYears();
+        public int? ClassYear { get; set; }
+        public SelectList ClassYears => SelectListHelper.GetClassYears(ClassYear);
         public IEnumerable<SubjectTeacher> SubjectTeachers { get; set; }
     }
 }

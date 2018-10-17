@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Controllers
 {
@@ -14,7 +15,7 @@ namespace SchoolSchedule.Controllers
             Context = new ModelContainer();
         }
         
-        public ActionResult IndexByClass(ClassYears? classYear)
+        public ActionResult IndexByClass(int? classYear)
         {
             var entities = (classYear != null)
                 ? Context.SubjectTeachers.Where(x => x.Subject.ClassYear == classYear).Include(x => x.Subject)
@@ -28,10 +29,10 @@ namespace SchoolSchedule.Controllers
             return View("Index", model);
         }
         
-        public override ActionResult Create(ClassYears? classYear)
+        public override ActionResult Create(int? classYear)
         {
-            ViewBag.SubjectId = new SelectList(GetSubjects(classYear), "Id", "DisplayName");
-            ViewBag.TeacherId = new SelectList(GetTeachers(), "Id", "DisplayName");
+            ViewBag.SubjectId = GetSubjects(classYear).GetSelectableList();
+            ViewBag.TeacherId = GetTeachers().GetSelectableList();
             return View("Create");
         }
 
@@ -43,13 +44,12 @@ namespace SchoolSchedule.Controllers
             {
                 Context.SubjectTeachers.Add(entity);
                 Context.SaveChanges();
-                var classYear = Context.SubjectTeachers.Include(x => x.Subject).FirstOrDefault(x => x.Id == entity.Id)
-                    ?.Subject.ClassYear;
+                var classYear = Context.SubjectTeachers.Include(x => x.Subject).FirstOrDefault(x => x.Id == entity.Id)?.Subject.ClassYear;
                 return RedirectToAction("IndexByClass", new { classYear });
             }
-
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Subject.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.TeacherId = new SelectList(GetTeachers(), "Id", "DisplayName", entity.TeacherId);
+            
+            ViewBag.SubjectId = GetSubjects(entity.Subject.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.TeacherId = GetTeachers().GetSelectableList(entity.TeacherId);
             return View(entity);
         }
         
@@ -60,8 +60,8 @@ namespace SchoolSchedule.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Subject.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.TeacherId = new SelectList(GetTeachers(), "Id", "DisplayName", entity.TeacherId);
+            ViewBag.SubjectId = GetSubjects(entity.Subject.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.TeacherId = GetTeachers().GetSelectableList(entity.TeacherId);
             return View(entity);
         }
         
@@ -71,13 +71,14 @@ namespace SchoolSchedule.Controllers
         {
             if (ModelState.IsValid)
             {
+                //todo: error saving after edit
                 Context.Entry(entity).State = EntityState.Modified;
                 Context.SaveChanges();
                 var classYear = Context.SubjectTeachers.Include(x => x.Subject).FirstOrDefault(x => x.Id == entity.Id)?.Subject.ClassYear;
                 return RedirectToAction("IndexByClass", new { classYear });
             }
-            ViewBag.SubjectId = new SelectList(GetSubjects(entity.Subject.ClassYear), "Id", "DisplayName", entity.SubjectId);
-            ViewBag.TeacherId = new SelectList(GetTeachers(), "Id", "DisplayName", entity.TeacherId);
+            ViewBag.SubjectId = GetSubjects(entity.Subject.ClassYear).GetSelectableList(entity.SubjectId);
+            ViewBag.TeacherId = GetTeachers().GetSelectableList(entity.TeacherId);
             return View(entity);
         }
 
