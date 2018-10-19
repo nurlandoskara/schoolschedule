@@ -1,30 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using SchoolSchedule.Helpers;
+using SchoolSchedule.Models;
+using SchoolSchedule.ViewModels;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SchoolSchedule.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController<Lesson>
     {
-        public ActionResult Index()
+        public HomeController()
         {
-            return View();
+            Context = new ModelContainer();
         }
 
-        public ActionResult About()
+        [AllowAnonymous]
+        public ActionResult Schedule(int? groupId)
         {
-            ViewBag.Message = "Your application description page.";
+            var lessons = new List<Lesson>();
+            if (groupId != null)
+            {
+                lessons = Context.Lessons.Where(x => !x.IsDeleted).Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
+                    .Include(l => l.SubjectGroup.Group).Include(l => l.SubjectTeacher)
+                    .Include(l => l.SubjectTeacher.Teacher).ToList();
+            }
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var model = new LessonViewModel()
+            {
+                GroupId = groupId,
+                Lessons = lessons,
+                Groups = GetGroups().GetSelectableList(groupId)
+            };
+            return View("Index", model);
         }
     }
 }

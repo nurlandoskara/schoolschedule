@@ -9,6 +9,6 @@ namespace SchoolSchedule.Models
         public string NameRu { get; set; }
 
         [Description("Subject Name")]
-        public string DisplayName => string.Concat(NameKz, ' ', ClassYear);
+        public string DisplayName => string.Concat(NameKz, ", ", ClassYear, " класс");
     }
 }

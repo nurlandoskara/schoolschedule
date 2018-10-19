@@ -12,19 +12,22 @@
 <body>
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    @Html.ActionLink("School Schedule", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+    @Html.ActionLink("Расписание уроков", "Schedule", "Home", new {area = ""}, new {@class = "navbar-brand"})
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            @Html.ActionLink("Главная", "Index", "Home", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Предметы", "Index", "Subjects", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Группы", "Index", "Groups", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Преподаватели", "Index", "Teachers", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Предметы по учителям", "IndexByClass", "SubjectTeachers", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Предметы по группам", "IndexByGroup", "SubjectGroups", new {area = ""}, new {@class = "nav-item nav-link"})
-            @Html.ActionLink("Уроки", "IndexByGroup", "Lessons", new {area = ""}, new {@class = "nav-item nav-link"})
+            @Html.ActionLink("Главная", "Schedule", "Home", new {area = ""}, new {@class = "nav-item nav-link"})
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Предметы", "Index", "Subjects", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Группы", "Index", "Groups", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Преподаватели", "Index", "Teachers", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Предметы по учителям", "IndexByClass", "SubjectTeachers", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Предметы по группам", "IndexByGroup", "SubjectGroups", new {area = ""}, new {@class = "nav-item nav-link"})
+                @Html.ActionLink("Уроки", "IndexByGroup", "Lessons", new {area = ""}, new {@class = "nav-item nav-link"})
+            }
         </div>
         <span class="navbar-text">
             @Html.Partial("_LoginPartial")

@@ -1,9 +1,54 @@
-﻿@{
+﻿@model SchoolSchedule.ViewModels.LessonViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>SchoolSchedule</h1>
-    <p class="lead">School description</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        @using (Html.BeginForm("Schedule", "Home", FormMethod.Post))
+        {
+            @Html.DropDownListFor(m => Model.GroupId, Model.Groups, new { onchange = "this.form.submit();", @class = "form-control" })
+        }
+    </div>
 </div>
+
+@if (Model.Lessons.Any())
+{
+    var days = Model.Lessons.GroupBy(x => x.DayOfWeek);
+    <table class="table table-striped">
+        <caption>Расписание для класса @Html.Label(Model.Lessons.FirstOrDefault()?.SubjectGroup.Group.DisplayName)</caption>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th>
+                Предмет
+            </th>
+            <th>
+                Преподаватель
+            </th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+        @foreach (var day in days)
+        {
+            var rowNumber = 0;
+            <tr class="table-primary"><td colspan="3">@Html.Label(day.Key.ToString())</td></tr>
+            foreach (var lesson in day.OrderBy(x => x.Order))
+            {
+                rowNumber++;
+                <tr>
+                    <th scope="row">@rowNumber</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => lesson.SubjectGroup.Subject.DisplayName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => lesson.SubjectTeacher.Teacher.DisplayName)
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
