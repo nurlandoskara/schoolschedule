@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace SchoolSchedule.Models
+namespace SchoolSchedule.Models.DTO
 {
-    public class Day
+    public class DayDto
     {
         public DayOfWeek DayOfWeek { get; set; }
-
+        public List<LessonDto> Lessons { get; set; }
     }
 }
