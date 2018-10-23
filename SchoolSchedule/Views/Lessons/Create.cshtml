@@ -1,61 +1,88 @@
 ﻿@model SchoolSchedule.Models.Lesson
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    
-    
-    @using (Html.BeginForm("Create", "Lessons", FormMethod.Post)) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>Жаңа сабақ</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.DayOfWeek, "Апта күні", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.DayOfWeek, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.DayOfWeek, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.SubjectGroupId, "Сынып пәні", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("SubjectGroupId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SubjectGroupId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.SubjectTeacherId, "Пән мұғалімі", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("SubjectTeacherId", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.SubjectTeacherId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Order, "Сабақ нөмірі", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Қосу" class="btn btn-default" />
-                </div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#SubjectGroupId").change(function() {
+            $("#SubjectTeacherId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetTeachersOfSubject")',
+                dataType: 'json',
+                data: { id: $("#SubjectGroupId").val() },
+                success: function(mems) {
+                    $.each(mems,
+                        function(i, member) {
+                            $("#SubjectTeacherId")
+                                .append('<option value="' + member.Value + '">' + member.Text + '</option>');
+                        });
+                },
+                error: function(ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+@using (Html.BeginForm("Create", "Lessons", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Жаңа сабақ</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DayOfWeek, "Апта күні", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.DayOfWeek, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DayOfWeek, "", new { @class = "text-danger" })
             </div>
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectGroupId, "Сынып пәні", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubjectGroupId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectGroupId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectTeacherId, "Пән мұғалімі", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubjectTeacherId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectTeacherId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Order, "Сабақ нөмірі", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Order, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Order, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Қосу" class="btn btn-default" />
+            </div>
+        </div>
     </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

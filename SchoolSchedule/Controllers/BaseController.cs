@@ -1,10 +1,10 @@
-﻿using SchoolSchedule.Models;
+﻿using SchoolSchedule.Helpers;
+using SchoolSchedule.Models;
 using SchoolSchedule.ViewModels;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Controllers
 {
@@ -100,20 +100,6 @@ namespace SchoolSchedule.Controllers
         public IEnumerable<Group> GetGroups()
         {
             return Context.Groups.Where(x => !x.IsDeleted).ToList();
-        }
-
-        public IEnumerable<SubjectGroup> GetSubjectGroups(int? groupId)
-        {
-            var subjectGroups = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group).Where(x => !x.IsDeleted);
-            return (groupId != null)
-                ? subjectGroups.Where(x => x.GroupId == groupId).ToList()
-                : subjectGroups.ToList();
-        }
-
-        public IEnumerable<SubjectTeacher> GetSubjectTeachers(int? classYear)
-        {
-            return Context.SubjectTeachers.Where(x => !x.IsDeleted && x.Subject.ClassYear == classYear)
-                .Include(x => x.Subject).Include(x => x.Teacher).ToList();
         }
     }
 }

@@ -7,8 +7,33 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#SubjectGroupId").change(function() {
+            $("#SubjectTeacherId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetTeachersOfSubject")',
+                dataType: 'json',
+                data: { id: $("#SubjectGroupId").val() },
+                success: function(mems) {
+                    $.each(mems,
+                        function(i, member) {
+                            $("#SubjectTeacherId")
+                                .append('<option value="' + member.Value + '">' + member.Text + '</option>');
+                        });
+                },
+                error: function(ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+    });
+</script>
     
-    @using (Html.BeginForm())
+@using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         

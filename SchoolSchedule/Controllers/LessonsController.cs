@@ -1,6 +1,7 @@
 ﻿using SchoolSchedule.Helpers;
 using SchoolSchedule.Models;
 using SchoolSchedule.ViewModels;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -35,12 +36,18 @@ namespace SchoolSchedule.Controllers
 
         public ActionResult CreateByGroup(int? groupId)
         {
-            var classYear = Context.Groups.Find(groupId)?.ClassYear;
             ViewBag.SubjectGroupId = GetSubjectGroups(groupId).GetSelectableSubjectGroups();
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(classYear).GetSelectableSubjectTeachers();
+            var subjectId = GetSubjectGroups(groupId).FirstOrDefault()?.SubjectId;
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(subjectId).GetSelectableSubjectTeachers();
             return View("Create");
         }
-        
+
+        public JsonResult GetTeachersOfSubject(int id)
+        {
+            var subjectId = Context.SubjectGroups.FirstOrDefault(x => x.Id == id)?.SubjectId;
+            return Json(GetSubjectTeachers(subjectId).GetSelectableSubjectTeachers());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public override ActionResult Create(Lesson entity)
@@ -54,7 +61,7 @@ namespace SchoolSchedule.Controllers
             }
             
             ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.Group.Id).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Subject.Id).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
         
@@ -66,7 +73,7 @@ namespace SchoolSchedule.Controllers
                 return HttpNotFound();
             }
             ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.GroupId).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.SubjectId).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
         
@@ -83,7 +90,7 @@ namespace SchoolSchedule.Controllers
             }
 
             ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.Group.Id).GetSelectableSubjectGroups(entity.SubjectGroupId);
-            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Group.ClassYear).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
+            ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.Subject.Id).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             return View(entity);
         }
 
@@ -97,6 +104,21 @@ namespace SchoolSchedule.Controllers
             entity.IsDeleted = true;
             Context.SaveChanges();
             return RedirectToAction("IndexByGroup", new { entity.SubjectGroup.GroupId });
+        }
+
+
+        public IEnumerable<SubjectGroup> GetSubjectGroups(int? groupId)
+        {
+            var subjectGroups = Context.SubjectGroups.Include(x => x.Subject).Include(x => x.Group).Where(x => !x.IsDeleted);
+            return (groupId != null)
+                ? subjectGroups.Where(x => x.GroupId == groupId).ToList()
+                : subjectGroups.ToList();
+        }
+
+        public IEnumerable<SubjectTeacher> GetSubjectTeachers(int? subjectId)
+        {
+            return Context.SubjectTeachers.Where(x => !x.IsDeleted && x.Subject.Id == subjectId)
+                .Include(x => x.Subject).Include(x => x.Teacher).ToList();
         }
 
         protected override void Dispose(bool disposing)
