@@ -6,7 +6,10 @@
 }
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-                @Html.ActionLink("Добавить", "Create", new { ClassYear = Model.ClassYear}, new { @class = "btn btn-success" })
+            @Html.ActionLink("Жаңа пән қосу", "Create", new { ClassYear = Model.ClassYear}, new { @class = "btn btn-success" })
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            @Html.Label("Сыныпты таңдаңыз")
         </div>
         <div class="btn-group mr-2" role="group" aria-label="Second group">
             @using (Html.BeginForm("Index", "Subjects", FormMethod.Post))
@@ -17,18 +20,18 @@
     </div>
 
     <table class="table">
-        <caption>List of subjects</caption>
+        <caption>Пәндер тізімі</caption>
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th>
-                    Название предмета
+                    Пәннің атауы
                 </th>
                 <th>
-                    Класс
+                    Сыныбы
                 </th>
-                <th>Удален</th>
-                <th>Рекдактирование</th>
+                <th>Өшірілген</th>
+                <th>Өзгерту</th>
             </tr>
         </thead>
         <tbody class="table-hover">
@@ -52,8 +55,8 @@
                         @Html.DisplayFor(modelItem => item.IsDeleted)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Өзгерту", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Өшіру", "Delete", new { id = item.Id })
                     </td>
                 </tr>
             }

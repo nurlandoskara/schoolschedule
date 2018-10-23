@@ -1,4 +1,5 @@
-﻿@model SchoolSchedule.ViewModels.LessonViewModel
+﻿@using SchoolSchedule.Helpers
+@model SchoolSchedule.ViewModels.LessonViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +7,10 @@
 
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-        @Html.ActionLink("Добавить", "CreateByGroup", new { GroupId = Model.GroupId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Жаңа сабақ қосу", "CreateByGroup", new { GroupId = Model.GroupId }, new { @class = "btn btn-success" })
+    </div>
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @Html.Label("Сыныпты таңдаңыз")
     </div>
     <div class="btn-group mr-2" role="group" aria-label="Second group">
         @using (Html.BeginForm("IndexByGroup", "Lessons", FormMethod.Post))
@@ -17,27 +21,27 @@
 </div>
 
 <table class="table">
-    <caption>List of subjects</caption>
+    <caption>Сабақтар тізімі</caption>
     <thead>
         <tr>
             <th scope="col">#</th>
             <th>
-                День недели
+                Апта күні
             </th>
             <th>
-                Предмет
+                Сабақ нөмірі
             </th>
             <th>
-                Преподаватель
+                Пән
             </th>
             <th>
-                Группа
+                Мұғалім
             </th>
             <th>
-                Порядок
+                Сынып
             </th>
-            <th>Удален</th>
-            <th>Редактирование</th>
+            <th>Өшірілген</th>
+            <th>Өзгерту</th>
         </tr>
     </thead>
     <tbody class="table-hover">
@@ -52,7 +56,10 @@
         <tr class="@rowClass">
             <th scope="row">@rowNumber</th>
             <td>
-                @Html.DisplayFor(modelItem => item.DayOfWeek)
+                @Html.Label(DictionaryHelper.GetDayOfWeekName(item.DayOfWeek))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SubjectGroup.Subject.DisplayName)
@@ -64,14 +71,11 @@
                 @Html.DisplayFor(modelItem => item.SubjectGroup.Group.DisplayName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Order)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Өзгерту", "Edit", new { id = item.Id })
+                @Html.ActionLink("Өшіру", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

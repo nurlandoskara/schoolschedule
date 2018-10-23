@@ -5,26 +5,26 @@
 }
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
     <div class="btn-group mr-2" role="group" aria-label="First group">
-        @Html.ActionLink("Добавить", "Create", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Жаңа мұғалім қосу", "Create", null, new { @class = "btn btn-success" })
     </div>
 </div>
 
 <table class="table">
-    <caption>List of teachers</caption>
+    <caption>Мұғалімдер тізімі</caption>
     <thead>
         <tr>
             <th scope="col">#</th>
             <th>
-                Имя
+                Аты
             </th>
             <th>
-                Фамилия
+                Тегі
             </th>
             <th>
-                Отчество
+                Әкесінің аты
             </th>
-            <th>Удален</th>
-            <th>Рекдактирование</th>
+            <th>Өшірілген</th>
+            <th>Өзгерту</th>
         </tr>
     </thead>
     <tbody class="table-hover">
@@ -51,8 +51,8 @@
                 @Html.DisplayFor(modelItem => item.IsDeleted)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Өзгерту", "Edit", new { id = item.Id })
+                @Html.ActionLink("Өшіру", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

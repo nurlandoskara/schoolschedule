@@ -9,3 +9,9 @@ textarea {
 .btn-toolbar {
     padding: 10px;
 }
+caption {
+    caption-side: top;
+}
+.body-content {
+    padding: 20px 30px;
+}

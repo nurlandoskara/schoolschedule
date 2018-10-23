@@ -4,44 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - SchoolSchedule</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
-
+    @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body class="">
 <div class="container">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    @Html.ActionLink("Расписание уроков", "Schedule", "Home", new {area = ""}, new {@class = "navbar-brand"})
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            @Html.ActionLink("Главная", "Schedule", "Home", new {area = ""}, new {@class = "nav-item nav-link"})
-            @if (User.Identity.IsAuthenticated)
-            {
-                @Html.ActionLink("Предметы", "Index", "Subjects", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Группы", "Index", "Groups", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Преподаватели", "Index", "Teachers", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Предметы по учителям", "IndexByClass", "SubjectTeachers", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Предметы по группам", "IndexByGroup", "SubjectGroups", new {area = ""}, new {@class = "nav-item nav-link"})
-                @Html.ActionLink("Уроки", "IndexByGroup", "Lessons", new {area = ""}, new {@class = "nav-item nav-link"})
-            }
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        @Html.ActionLink("Сабақ кестесі", "Schedule", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                @Html.ActionLink("Басты бет", "Schedule", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Пәндер", "Index", "Subjects", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Сыныптар", "Index", "Groups", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Мұғалімдер", "Index", "Teachers", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Пән мұғалімдері", "IndexByClass", "SubjectTeachers", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Сынып пәндері", "IndexByGroup", "SubjectGroups", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Сабақтар", "IndexByGroup", "Lessons", new { area = "" }, new { @class = "nav-item nav-link" })
+                }
+            </div>
         </div>
-        <span class="navbar-text">
-            @Html.Partial("_LoginPartial")
-        </span>
+    </nav>
+    <div class="text-right bg-warning">
+        @Html.Partial("_LoginPartial")
     </div>
-</nav>
 
-<div class="body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-    </footer>
-</div>
+    <div class="body-content bg-light">
+        @RenderBody()
+        <hr/>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Сабақ кестесі</p>
+        </footer>
+    </div>
 </div>
 
 @Scripts.Render("~/bundles/jquery")

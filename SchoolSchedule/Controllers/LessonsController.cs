@@ -1,10 +1,10 @@
-﻿using SchoolSchedule.Models;
+﻿using SchoolSchedule.Helpers;
+using SchoolSchedule.Models;
+using SchoolSchedule.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using SchoolSchedule.Helpers;
-using SchoolSchedule.ViewModels;
 
 namespace SchoolSchedule.Controllers
 {
@@ -17,6 +17,7 @@ namespace SchoolSchedule.Controllers
 
         public ActionResult IndexByGroup(int? groupId)
         {
+            groupId = groupId ?? GetGroups().FirstOrDefault()?.Id;
             var lessons = Context.Lessons.Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
                 .Include(l => l.SubjectGroup.Group).Include(l => l.SubjectTeacher)
                 .Include(l => l.SubjectTeacher.Teacher);
@@ -26,7 +27,7 @@ namespace SchoolSchedule.Controllers
             var model = new LessonViewModel()
             {
                 GroupId = groupId,
-                Lessons = lessons.ToList(),
+                Lessons = lessons.OrderBy(x => x.DayOfWeek).ThenBy(x => x.Order).ToList(),
                 Groups = GetGroups().GetSelectableList(groupId)
             };
             return View("Index", model);

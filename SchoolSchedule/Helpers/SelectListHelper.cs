@@ -10,13 +10,6 @@ namespace SchoolSchedule.Helpers
         {
             var classYears = new List<int> {1,2,3,4,5,6,7,8,9,10,11};
             return new SelectList(classYears, selectedValue);
-            /*
-            return classYears.Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int) v).ToString()
-            }).ToList();
-            */
         }
 
         public static SelectList GetSelectableList<T>(this IEnumerable<T> list, int? selectedValue = null)

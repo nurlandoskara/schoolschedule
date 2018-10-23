@@ -1,4 +1,5 @@
-﻿@model SchoolSchedule.ViewModels.LessonViewModel
+﻿@using SchoolSchedule.Helpers
+@model SchoolSchedule.ViewModels.LessonViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,6 +10,7 @@
     <div class="btn-group mr-2" role="group" aria-label="Second group">
         @using (Html.BeginForm("Schedule", "Home", FormMethod.Post))
         {
+            @Html.Label("Сыныпты таңдаңыз")
             @Html.DropDownListFor(m => Model.GroupId, Model.Groups, new { onchange = "this.form.submit();", @class = "form-control" })
         }
     </div>
@@ -16,17 +18,17 @@
 
 @if (Model.Lessons.Any())
 {
-    var days = Model.Lessons.GroupBy(x => x.DayOfWeek);
+    var days = Model.Lessons.GroupBy(x => x.DayOfWeek).OrderBy(x => x.Key);
     <table class="table table-striped">
-        <caption>Расписание для класса @Html.Label(Model.Lessons.FirstOrDefault()?.SubjectGroup.Group.DisplayName)</caption>
+        <caption>@Html.Label(Model.Lessons.FirstOrDefault()?.SubjectGroup.Group.DisplayName) сыныбына арналған сабақ кестесі</caption>
         <thead>
         <tr>
             <th scope="col">#</th>
             <th>
-                Предмет
+                Пән
             </th>
             <th>
-                Преподаватель
+                Мұғалім
             </th>
         </tr>
         </thead>
@@ -34,7 +36,7 @@
         @foreach (var day in days)
         {
             var rowNumber = 0;
-            <tr class="table-primary"><td colspan="3">@Html.Label(day.Key.ToString())</td></tr>
+            <tr class="table-primary"><td colspan="3">@Html.Label(DictionaryHelper.GetDayOfWeekName(day.Key))</td></tr>
             foreach (var lesson in day.OrderBy(x => x.Order))
             {
                 rowNumber++;

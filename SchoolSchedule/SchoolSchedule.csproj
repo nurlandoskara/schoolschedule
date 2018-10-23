@@ -223,6 +223,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DictionaryHelper.cs" />
     <Compile Include="Helpers\SelectListHelper.cs" />
     <Compile Include="Migrations\201810031310454_InitialCreate.cs" />
     <Compile Include="Migrations\201810031310454_InitialCreate.Designer.cs">
@@ -270,10 +271,6 @@
     <Compile Include="ViewModels\SubjectTeacherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -298,12 +295,6 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\sschedule - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -338,7 +329,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -374,7 +364,6 @@
     <Content Include="Views\SubjectGroups\Edit.cshtml" />
     <Content Include="Views\SubjectGroups\Index.cshtml" />
     <Content Include="Views\Lessons\Create.cshtml" />
-    <Content Include="Views\Lessons\Details.cshtml" />
     <Content Include="Views\Lessons\Edit.cshtml" />
     <Content Include="Views\Lessons\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />

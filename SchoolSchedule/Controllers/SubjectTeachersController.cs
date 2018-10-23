@@ -1,10 +1,10 @@
-﻿using SchoolSchedule.Models;
+﻿using SchoolSchedule.Helpers;
+using SchoolSchedule.Models;
 using SchoolSchedule.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Controllers
 {
@@ -17,10 +17,9 @@ namespace SchoolSchedule.Controllers
         
         public ActionResult IndexByClass(int? classYear)
         {
-            var entities = (classYear != null)
-                ? Context.SubjectTeachers.Where(x => x.Subject.ClassYear == classYear).Include(x => x.Subject)
-                    .Include(x => x.Teacher).ToList()
-                : Context.SubjectTeachers.Include(x => x.Subject).Include(x => x.Teacher).ToList();
+            classYear = classYear ?? 1;
+            var entities = Context.SubjectTeachers.Where(x => x.Subject.ClassYear == classYear).Include(x => x.Subject)
+                .Include(x => x.Teacher).ToList();
             var model = new SubjectTeacherViewModel
             {
                 ClassYear = classYear,

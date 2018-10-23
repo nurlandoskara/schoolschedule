@@ -12,11 +12,11 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>Groups</h4>
+            <h4>Жаңа сынып</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.ClassLetter, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ClassLetter, "Сынып атауы", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.ClassLetter, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ClassLetter, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
             </div>
         
             <div class="form-group">
-                @Html.LabelFor(model => model.ClassYear, "GroupId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ClassYear, "Сынып жылы", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("ClassYear", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ClassYear, "", new { @class = "text-danger" })
@@ -32,16 +32,16 @@
             </div>
     
             <div class="form-group">
-                @Html.LabelFor(model => model.CreatedYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.CreatedYear, "Құрылған жылы", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CreatedYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CreatedYear, new { htmlAttributes = new { @class = "form-control", @Value = 2018 } })
                     @Html.ValidationMessageFor(model => model.CreatedYear, "", new { @class = "text-danger" })
                 </div>
             </div>
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Қосу" class="btn btn-default" />
                 </div>
             </div>
         </div>

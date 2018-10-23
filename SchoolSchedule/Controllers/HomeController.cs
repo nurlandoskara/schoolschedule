@@ -18,10 +18,11 @@ namespace SchoolSchedule.Controllers
         [AllowAnonymous]
         public ActionResult Schedule(int? groupId)
         {
+            groupId = groupId ?? GetGroups().FirstOrDefault()?.Id;
             var lessons = new List<Lesson>();
             if (groupId != null)
             {
-                lessons = Context.Lessons.Where(x => !x.IsDeleted).Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
+                lessons = Context.Lessons.Where(x => !x.IsDeleted && x.SubjectGroup.GroupId == groupId).Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
                     .Include(l => l.SubjectGroup.Group).Include(l => l.SubjectTeacher)
                     .Include(l => l.SubjectTeacher.Teacher).ToList();
             }
