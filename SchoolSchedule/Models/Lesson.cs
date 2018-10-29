@@ -19,5 +19,9 @@ namespace SchoolSchedule.Models
         public SubjectTeacher SubjectTeacher { get; set; }
 
         public int Order { get; set; }
+        
+        [ForeignKey("Auditory")]
+        public int? AuditoryId { get; set; }
+        public Auditory Auditory { get; set; }
     }
 }

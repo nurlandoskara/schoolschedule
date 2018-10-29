@@ -24,7 +24,7 @@ namespace SchoolSchedule.Controllers
             {
                 lessons = Context.Lessons.Where(x => !x.IsDeleted && x.SubjectGroup.GroupId == groupId).Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
                     .Include(l => l.SubjectGroup.Group).Include(l => l.SubjectTeacher)
-                    .Include(l => l.SubjectTeacher.Teacher).ToList();
+                    .Include(l => l.SubjectTeacher.Teacher).Include(x => x.Auditory).ToList();
             }
 
             var model = new LessonViewModel()

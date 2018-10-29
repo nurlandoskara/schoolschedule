@@ -24,5 +24,6 @@ namespace SchoolSchedule.Models
         public virtual DbSet<SubjectGroup> SubjectGroups { get; set; }
         public virtual DbSet<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Auditory> Auditories { get; set; }
     }
 }

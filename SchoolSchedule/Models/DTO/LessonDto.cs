@@ -4,6 +4,7 @@
     {
         public int Order { get; set; }
         public string SubjectName { get; set; }
-        public string TeacherName { get; set; }
+        public string AuditoryName { get; set; }
+        public string GroupOrTeacherName { get; set; }
     }
 }
