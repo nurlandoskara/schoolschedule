@@ -209,6 +209,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -254,6 +255,10 @@
     <Compile Include="Migrations\201810291437194_Auditory.Designer.cs">
       <DependentUpon>201810291437194_Auditory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811021319416_news.cs" />
+    <Compile Include="Migrations\201811021319416_news.Designer.cs">
+      <DependentUpon>201811021319416_news.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auditory.cs" />
@@ -265,6 +270,7 @@
     <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelContainer.cs" />
+    <Compile Include="Models\News.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\SubjectGroup.cs" />
     <Compile Include="Models\SubjectTeacher.cs" />
@@ -384,6 +390,9 @@
     <Content Include="Views\Auditories\Create.cshtml" />
     <Content Include="Views\Auditories\Edit.cshtml" />
     <Content Include="Views\Auditories\Index.cshtml" />
+    <Content Include="Views\News\Create.cshtml" />
+    <Content Include="Views\News\Edit.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,6 +425,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810291437194_Auditory.resx">
       <DependentUpon>201810291437194_Auditory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021319416_news.resx">
+      <DependentUpon>201811021319416_news.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

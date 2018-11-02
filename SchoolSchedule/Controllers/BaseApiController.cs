@@ -12,6 +12,13 @@ namespace SchoolSchedule.Controllers
         private ModelContainer db = new ModelContainer();
 
         [HttpGet]
+        [Route("api/News")]
+        public IQueryable<News> GetNews()
+        {
+            return db.Newses.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id);
+        }
+
+        [HttpGet]
         [Route("api/Groups")]
         public IQueryable<Group> GetGroups()
         {

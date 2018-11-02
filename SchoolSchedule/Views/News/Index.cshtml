@@ -1,0 +1,48 @@
+﻿@model SchoolSchedule.ViewModels.BaseViewModel<SchoolSchedule.Models.News>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        @Html.ActionLink("Жаңалық қосу", "Create", null, new { @class = "btn btn-success" })
+    </div>
+</div>
+
+<table class="table">
+    <caption>Аудиториялар тізімі</caption>
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th>
+                Аты
+            </th>
+            <th>Өшірілген</th>
+            <th>Өзгерту</th>
+        </tr>
+    </thead>
+    <tbody class="table-hover">
+    @{var rowNumber = 0;}
+    @foreach (var item in Model.List)
+    {
+        string rowClass;
+        {
+            rowClass = (item.IsDeleted) ? "table-danger" : null;
+            rowNumber++;
+        }
+        <tr class="@rowClass">
+            <th scope="row">@rowNumber</th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
+                @Html.ActionLink("Өзгерту", "Edit", new { id = item.Id })
+                @Html.ActionLink("Өшіру", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
