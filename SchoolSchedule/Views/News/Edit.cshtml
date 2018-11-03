@@ -1,4 +1,4 @@
-﻿@model SchoolSchedule.Models.News
+﻿@model SchoolSchedule.ViewModels.NewsViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     
     
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("EditNews", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         
@@ -31,6 +31,14 @@
         <div class="col-md-10">
             @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ImageUpload, "Фото", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.ImageUpload, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.ImageUpload, "", new { @class = "text-danger" })
         </div>
     </div>
 

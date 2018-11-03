@@ -1,8 +1,12 @@
-﻿namespace SchoolSchedule.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SchoolSchedule.Models
 {
     public class News: BaseDbObject
     {
-        public string Description { get; set; }
+        [Required]
         public string Title { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
     }
 }

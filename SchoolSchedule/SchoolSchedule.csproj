@@ -259,6 +259,14 @@
     <Compile Include="Migrations\201811021319416_news.Designer.cs">
       <DependentUpon>201811021319416_news.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811031042141_Image.cs" />
+    <Compile Include="Migrations\201811031042141_Image.Designer.cs">
+      <DependentUpon>201811031042141_Image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811031144266_Image2.cs" />
+    <Compile Include="Migrations\201811031144266_Image2.Designer.cs">
+      <DependentUpon>201811031144266_Image2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auditory.cs" />
@@ -279,6 +287,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\LessonViewModel.cs" />
+    <Compile Include="ViewModels\NewsViewModel.cs" />
     <Compile Include="ViewModels\SubjectGroupViewModel.cs" />
     <Compile Include="ViewModels\SubjectTeacherViewModel.cs" />
   </ItemGroup>
@@ -428,6 +437,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811021319416_news.resx">
       <DependentUpon>201811021319416_news.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811031042141_Image.resx">
+      <DependentUpon>201811031042141_Image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811031144266_Image2.resx">
+      <DependentUpon>201811031144266_Image2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
