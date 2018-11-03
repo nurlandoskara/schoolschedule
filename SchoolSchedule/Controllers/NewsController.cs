@@ -1,12 +1,10 @@
-﻿using System;
+﻿using SchoolSchedule.Models;
+using SchoolSchedule.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.IO;
-using System.Web;
 using System.Web.Mvc;
-using SchoolSchedule.Helpers;
-using SchoolSchedule.Models;
-using SchoolSchedule.ViewModels;
 
 namespace SchoolSchedule.Controllers
 {
