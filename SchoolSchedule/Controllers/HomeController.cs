@@ -35,5 +35,27 @@ namespace SchoolSchedule.Controllers
             };
             return View("Index", model);
         }
+
+        [AllowAnonymous]
+        public ActionResult ScheduleTeacher(int? teacherId)
+        {
+            teacherId = teacherId ?? GetTeachers().FirstOrDefault()?.Id;
+            var lessons = new List<Lesson>();
+            if (teacherId != null)
+            {
+                lessons = Context.Lessons.Where(x => !x.IsDeleted && x.SubjectTeacher.TeacherId == teacherId)
+                    .Include(l => l.SubjectGroup).Include(l => l.SubjectGroup.Subject)
+                    .Include(l => l.SubjectGroup.Group).Include(l => l.SubjectTeacher)
+                    .Include(l => l.SubjectTeacher.Teacher).Include(x => x.Auditory).ToList();
+            }
+
+            var model = new LessonTeacherViewModel()
+            {
+                TeacherId = teacherId,
+                Lessons = lessons,
+                Teachers = GetGroups().GetSelectableList(teacherId)
+            };
+            return View("IndexTeacher", model);
+        }
     }
 }

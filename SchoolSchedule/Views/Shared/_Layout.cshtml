@@ -18,6 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 @Html.ActionLink("Басты бет", "Schedule", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Басты бет", "ScheduleTeacher", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
                 @if (User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("Пәндер", "Index", "Subjects", new { area = "" }, new { @class = "nav-item nav-link" })

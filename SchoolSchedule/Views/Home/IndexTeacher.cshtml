@@ -1,0 +1,62 @@
+﻿@using SchoolSchedule.Helpers
+@model SchoolSchedule.ViewModels.LessonTeacherViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+        @using (Html.BeginForm("Schedule", "Home", FormMethod.Post))
+        {
+            @Html.Label("Сыныпты таңдаңыз")
+            @Html.DropDownListFor(m => Model.TeacherId, Model.Teachers, new { onchange = "this.form.submit();", @class = "form-control" })
+        }
+    </div>
+</div>
+
+@if (Model.Lessons.Any())
+{
+    var days = Model.Lessons.GroupBy(x => x.DayOfWeek).OrderBy(x => x.Key);
+    <table class="table table-striped">
+        <caption>@Html.Label(Model.Lessons.FirstOrDefault()?.SubjectTeacher.Teacher.DisplayName) арналған сабақ кестесі</caption>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>
+                    Пән
+                </th>
+                <th>
+                    Мұғалім
+                </th>
+                <th>
+                    Аудитория
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+        @foreach (var day in days)
+        {
+            var rowNumber = 0;
+            <tr class="table-primary"><td colspan="4">@Html.Label(DictionaryHelper.GetDayOfWeekName(day.Key))</td></tr>
+            foreach (var lesson in day.OrderBy(x => x.Order))
+            {
+                rowNumber++;
+            <tr>
+                <th scope="row">@rowNumber</th>
+                <td>
+                    @Html.DisplayFor(modelItem => lesson.SubjectGroup.Subject.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => lesson.SubjectGroup.Group.DisplayName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => lesson.Auditory.DisplayName)
+                </td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+}
