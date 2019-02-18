@@ -227,45 +227,9 @@
     </Compile>
     <Compile Include="Helpers\DictionaryHelper.cs" />
     <Compile Include="Helpers\SelectListHelper.cs" />
-    <Compile Include="Migrations\201810031310454_InitialCreate.cs" />
-    <Compile Include="Migrations\201810031310454_InitialCreate.Designer.cs">
-      <DependentUpon>201810031310454_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810031426124_First.cs" />
-    <Compile Include="Migrations\201810031426124_First.Designer.cs">
-      <DependentUpon>201810031426124_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810041507068_Second.cs" />
-    <Compile Include="Migrations\201810041507068_Second.Designer.cs">
-      <DependentUpon>201810041507068_Second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810081617439_Third.cs" />
-    <Compile Include="Migrations\201810081617439_Third.Designer.cs">
-      <DependentUpon>201810081617439_Third.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810081721344_Fourth.cs" />
-    <Compile Include="Migrations\201810081721344_Fourth.Designer.cs">
-      <DependentUpon>201810081721344_Fourth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810111554181_Fives.cs" />
-    <Compile Include="Migrations\201810111554181_Fives.Designer.cs">
-      <DependentUpon>201810111554181_Fives.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810291437194_Auditory.cs" />
-    <Compile Include="Migrations\201810291437194_Auditory.Designer.cs">
-      <DependentUpon>201810291437194_Auditory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811021319416_news.cs" />
-    <Compile Include="Migrations\201811021319416_news.Designer.cs">
-      <DependentUpon>201811021319416_news.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811031042141_Image.cs" />
-    <Compile Include="Migrations\201811031042141_Image.Designer.cs">
-      <DependentUpon>201811031042141_Image.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811031144266_Image2.cs" />
-    <Compile Include="Migrations\201811031144266_Image2.Designer.cs">
-      <DependentUpon>201811031144266_Image2.cs</DependentUpon>
+    <Compile Include="Migrations\201902181407093_First.cs" />
+    <Compile Include="Migrations\201902181407093_First.Designer.cs">
+      <DependentUpon>201902181407093_First.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,7 +241,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Lesson.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelContainer.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\SubjectGroup.cs" />
@@ -418,42 +381,15 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810031310454_InitialCreate.resx">
-      <DependentUpon>201810031310454_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810031426124_First.resx">
-      <DependentUpon>201810031426124_First.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810041507068_Second.resx">
-      <DependentUpon>201810041507068_Second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810081617439_Third.resx">
-      <DependentUpon>201810081617439_Third.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810081721344_Fourth.resx">
-      <DependentUpon>201810081721344_Fourth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810111554181_Fives.resx">
-      <DependentUpon>201810111554181_Fives.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810291437194_Auditory.resx">
-      <DependentUpon>201810291437194_Auditory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811021319416_news.resx">
-      <DependentUpon>201811021319416_news.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811031042141_Image.resx">
-      <DependentUpon>201811031042141_Image.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811031144266_Image2.resx">
-      <DependentUpon>201811031144266_Image2.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902181407093_First.resx">
+      <DependentUpon>201902181407093_First.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

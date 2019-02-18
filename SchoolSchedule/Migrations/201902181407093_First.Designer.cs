@@ -7,13 +7,13 @@ namespace SchoolSchedule.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Auditory : IMigrationMetadata
+    public sealed partial class First : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Auditory));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(First));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810291437194_Auditory"; }
+            get { return "201902181407093_First"; }
         }
         
         string IMigrationMetadata.Source

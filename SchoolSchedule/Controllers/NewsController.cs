@@ -12,7 +12,7 @@ namespace SchoolSchedule.Controllers
     {
         public NewsController()
         {
-            Context = new ModelContainer();
+            Context = new ApplicationDbContext();
         }
 
         public override ActionResult Create(int? classYear)

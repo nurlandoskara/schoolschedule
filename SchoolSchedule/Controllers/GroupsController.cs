@@ -6,7 +6,7 @@ namespace SchoolSchedule.Controllers
     {
         public GroupsController()
         {
-            Context = new ModelContainer();
+            Context = new ApplicationDbContext();
         }
     }
 }

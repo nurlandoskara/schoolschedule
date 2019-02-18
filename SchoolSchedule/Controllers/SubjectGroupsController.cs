@@ -12,7 +12,7 @@ namespace SchoolSchedule.Controllers
     {
         public SubjectGroupsController()
         {
-            Context = new ModelContainer();
+            Context = new ApplicationDbContext();
         }
         
         public ActionResult IndexByGroup(int? groupId)

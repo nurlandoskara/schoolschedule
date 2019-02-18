@@ -9,7 +9,7 @@ namespace SchoolSchedule.Controllers
 {
     public class BaseApiController : ApiController
     {
-        private ModelContainer db = new ModelContainer();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         [HttpGet]
         [Route("api/News")]

@@ -5,15 +5,15 @@ namespace SchoolSchedule.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SchoolSchedule.Models.ModelContainer>
+    internal sealed class Configuration : DbMigrationsConfiguration<SchoolSchedule.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SchoolSchedule.Models.ModelContainer";
+            ContextKey = "SchoolSchedule.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(SchoolSchedule.Models.ModelContainer context)
+        protected override void Seed(SchoolSchedule.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

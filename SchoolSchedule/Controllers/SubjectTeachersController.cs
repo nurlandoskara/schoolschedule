@@ -12,7 +12,7 @@ namespace SchoolSchedule.Controllers
     {
         public SubjectTeachersController()
         {
-            Context = new ModelContainer();
+            Context = new ApplicationDbContext();
         }
         
         public ActionResult IndexByClass(int? classYear)

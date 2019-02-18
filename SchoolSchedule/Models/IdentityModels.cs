@@ -25,6 +25,15 @@ namespace SchoolSchedule.Models
         {
         }
 
+        public virtual DbSet<Subject> Subjects { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<SubjectGroup> SubjectGroups { get; set; }
+        public virtual DbSet<SubjectTeacher> SubjectTeachers { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Auditory> Auditories { get; set; }
+        public virtual DbSet<News> Newses { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

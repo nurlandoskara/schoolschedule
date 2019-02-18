@@ -10,7 +10,7 @@ namespace SchoolSchedule.Controllers
 {
     public abstract class BaseController<T> : Controller where T: BaseDbObject, new()
     {
-        protected ModelContainer Context;
+        protected ApplicationDbContext Context;
 
         public virtual ActionResult Index(int? classYear)
         {

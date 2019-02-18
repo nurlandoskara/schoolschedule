@@ -12,7 +12,7 @@ namespace SchoolSchedule.Controllers
     {
         public HomeController()
         {
-            Context = new ModelContainer();
+            Context = new ApplicationDbContext();
         }
 
         [AllowAnonymous]
