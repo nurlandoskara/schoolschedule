@@ -53,7 +53,7 @@ namespace SchoolSchedule.Controllers
             {
                 TeacherId = teacherId,
                 Lessons = lessons,
-                Teachers = GetGroups().GetSelectableList(teacherId)
+                Teachers = GetTeachers().GetSelectableList(teacherId)
             };
             return View("IndexTeacher", model);
         }

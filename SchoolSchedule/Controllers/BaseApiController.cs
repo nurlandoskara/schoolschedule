@@ -9,27 +9,27 @@ namespace SchoolSchedule.Controllers
 {
     public class BaseApiController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         [HttpGet]
         [Route("api/News")]
         public IQueryable<News> GetNews()
         {
-            return db.Newses.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id);
+            return _db.Newses.Where(x => !x.IsDeleted).OrderByDescending(x => x.Id);
         }
 
         [HttpGet]
         [Route("api/Groups")]
         public IQueryable<Group> GetGroups()
         {
-            return db.Groups.Where(x => !x.IsDeleted);
+            return _db.Groups.Where(x => !x.IsDeleted);
         }
 
         [HttpGet]
         [Route("api/Teachers")]
         public IQueryable<Teacher> GetTeachers()
         {
-            return db.Teachers.Where(x => !x.IsDeleted);
+            return _db.Teachers.Where(x => !x.IsDeleted);
         }
 
         [HttpGet]
@@ -50,14 +50,14 @@ namespace SchoolSchedule.Controllers
 
         private List<DayDto> GetLessonsOfGroup(int groupId)
         {
-            return db.Lessons.Where(x => !x.IsDeleted && x.SubjectGroup.GroupId == groupId)
+            return _db.Lessons.Where(x => !x.IsDeleted && x.SubjectGroup.GroupId == groupId)
                 .Include(x => x.SubjectGroup)
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectTeacher)
                 .Include(x => x.SubjectTeacher.Teacher)
-                .OrderBy(x => x.Order).ToList().GroupBy(x => x.DayOfWeek).Select(day => new DayDto
+                .OrderBy(x => x.Order).ToList().GroupBy(x => x.WeekDay).Select(day => new DayDto
                 {
-                    DayOfWeek = day.Key,
+                    WeekDay = day.Key,
                     Lessons = day.Select(lesson => new LessonDto
                     {
                         Order = lesson.Order,
@@ -69,13 +69,13 @@ namespace SchoolSchedule.Controllers
 
         private List<DayDto> GetTLessonsOfTeacher(int teacherId)
         {
-            return db.Lessons.Where(x => !x.IsDeleted && x.SubjectTeacher.TeacherId == teacherId)
+            return _db.Lessons.Where(x => !x.IsDeleted && x.SubjectTeacher.TeacherId == teacherId)
                 .Include(x => x.SubjectGroup)
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectGroup.Group)
-                .OrderBy(x => x.Order).ToList().GroupBy(x => x.DayOfWeek).Select(day => new DayDto
+                .OrderBy(x => x.Order).ToList().GroupBy(x => x.WeekDay).Select(day => new DayDto
                 {
-                    DayOfWeek = day.Key,
+                    WeekDay = day.Key,
                     Lessons = day.Select(lesson => new LessonDto
                     {
                         Order = lesson.Order,

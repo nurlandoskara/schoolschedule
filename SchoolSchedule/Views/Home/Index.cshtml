@@ -18,7 +18,7 @@
 
 @if (Model.Lessons.Any())
 {
-    var days = Model.Lessons.GroupBy(x => x.DayOfWeek).OrderBy(x => x.Key);
+    var days = Model.Lessons.GroupBy(x => x.WeekDay).OrderBy(x => x.Key);
     <table class="table table-striped">
         <caption>@Html.Label(Model.Lessons.FirstOrDefault()?.SubjectGroup.Group.DisplayName) сыныбына арналған сабақ кестесі</caption>
         <thead>
@@ -39,7 +39,7 @@
         @foreach (var day in days)
         {
             var rowNumber = 0;
-            <tr class="table-primary"><td colspan="4">@Html.Label(DictionaryHelper.GetDayOfWeekName(day.Key))</td></tr>
+            <tr class="table-primary"><td colspan="4">@Html.Label(day.FirstOrDefault()?.Day)</td></tr>
             foreach (var lesson in day.OrderBy(x => x.Order))
             {
                 rowNumber++;

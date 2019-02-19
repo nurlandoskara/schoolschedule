@@ -5,11 +5,11 @@ using System.Web.Mvc;
 
 namespace SchoolSchedule.ViewModels
 {
-    public class LessonTeacherViewModel
+    public class LessonViewModel
     {
-        public int? TeacherId { get; set; }
-        [Display(Name = "Select teacher")]
-        public SelectList Teachers { get; set; }
+        public int? GroupId { get; set; }
+        [Display(Name = "Select group")]
+        public SelectList Groups { get; set; }
         public IEnumerable<Lesson> Lessons { get; set; }
     }
 }

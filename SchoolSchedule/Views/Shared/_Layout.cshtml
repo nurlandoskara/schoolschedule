@@ -17,14 +17,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                @Html.ActionLink("Басты бет", "Schedule", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
-                @Html.ActionLink("Басты бет", "ScheduleTeacher", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Оқушылар кестесі", "Schedule", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
+                @Html.ActionLink("Мұғалімдер кестесі", "ScheduleTeacher", "Home", new { area = "" }, new { @class = "nav-item nav-link" })
                 @if (User.Identity.IsAuthenticated)
                 {
                     @Html.ActionLink("Пәндер", "Index", "Subjects", new { area = "" }, new { @class = "nav-item nav-link" })
                     @Html.ActionLink("Сыныптар", "Index", "Groups", new { area = "" }, new { @class = "nav-item nav-link" })
                     @Html.ActionLink("Мұғалімдер", "Index", "Teachers", new { area = "" }, new { @class = "nav-item nav-link" })
-                    @Html.ActionLink("Аудиториялар", "Index", "Auditories", new { area = "" }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Сынып бөлмелері", "Index", "Auditories", new { area = "" }, new { @class = "nav-item nav-link" })
                     @Html.ActionLink("Пән мұғалімдері", "IndexByClass", "SubjectTeachers", new { area = "" }, new { @class = "nav-item nav-link" })
                     @Html.ActionLink("Сынып пәндері", "IndexByGroup", "SubjectGroups", new { area = "" }, new { @class = "nav-item nav-link" })
                     @Html.ActionLink("Сабақтар", "IndexByGroup", "Lessons", new { area = "" }, new { @class = "nav-item nav-link" })

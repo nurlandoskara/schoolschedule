@@ -28,7 +28,7 @@ namespace SchoolSchedule.Controllers
             var model = new LessonViewModel()
             {
                 GroupId = groupId,
-                Lessons = lessons.OrderBy(x => x.DayOfWeek).ThenBy(x => x.Order).ToList(),
+                Lessons = lessons.OrderBy(x => x.WeekDay).ThenBy(x => x.Order).ToList(),
                 Groups = GetGroups().GetSelectableList(groupId)
             };
             return View("Index", model);
@@ -40,6 +40,7 @@ namespace SchoolSchedule.Controllers
             var subjectId = GetSubjectGroups(groupId).FirstOrDefault()?.SubjectId;
             ViewBag.SubjectTeacherId = GetSubjectTeachers(subjectId).GetSelectableSubjectTeachers();
             ViewBag.AuditoryId = GetAuditories().GetSelectableList();
+            ViewBag.Weekday = EnumHelper.EnumList<Enums.Enums.WeekDay>().GetSelectableList();
             return View("Create");
         }
 
@@ -71,6 +72,7 @@ namespace SchoolSchedule.Controllers
             ViewBag.SubjectGroupId = GetSubjectGroups(entity.SubjectGroup.GroupId).GetSelectableSubjectGroups(entity.SubjectGroupId);
             ViewBag.SubjectTeacherId = GetSubjectTeachers(entity.SubjectGroup.SubjectId).GetSelectableSubjectTeachers(entity.SubjectTeacherId);
             ViewBag.AuditoryId = GetAuditories().GetSelectableList(entity.AuditoryId);
+            ViewBag.Weekday = EnumHelper.EnumList<Enums.Enums.WeekDay>().GetSelectableList((int)entity.WeekDay);
             return View(entity);
         }
         

@@ -1,12 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SchoolSchedule.Helpers;
 
 namespace SchoolSchedule.Models
 {
     public class Lesson : BaseDbObject
     {
-        public DayOfWeek DayOfWeek { get; set; }
+        public Enums.Enums.WeekDay WeekDay { get; set; }
+        public string Day => EnumHelper.Description(WeekDay);
 
         [Required]
         [ForeignKey("SubjectGroup")]

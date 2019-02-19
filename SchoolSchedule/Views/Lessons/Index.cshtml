@@ -1,5 +1,4 @@
-﻿@using SchoolSchedule.Helpers
-@model SchoolSchedule.ViewModels.LessonViewModel
+﻿@model SchoolSchedule.ViewModels.LessonViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -38,7 +37,7 @@
                 Мұғалім
             </th>
             <th>
-                Аудитория
+                Сынып бөлмесі
             </th>
             <th>
                 Сынып
@@ -59,7 +58,7 @@
         <tr class="@rowClass">
             <th scope="row">@rowNumber</th>
             <td>
-                @Html.Label(DictionaryHelper.GetDayOfWeekName(item.DayOfWeek))
+                @Html.DisplayFor(modelItem => item.Day)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Order)

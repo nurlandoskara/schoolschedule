@@ -5,7 +5,7 @@ namespace SchoolSchedule.Models.DTO
 {
     public class DayDto
     {
-        public DayOfWeek DayOfWeek { get; set; }
+        public Enums.Enums.WeekDay WeekDay { get; set; }
         public List<LessonDto> Lessons { get; set; }
     }
 }
