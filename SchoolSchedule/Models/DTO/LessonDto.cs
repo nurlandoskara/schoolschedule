@@ -6,5 +6,6 @@
         public string SubjectName { get; set; }
         public string AuditoryName { get; set; }
         public string GroupOrTeacherName { get; set; }
+        public Enums.Enums.WeekDay WeekDay { get; set; }
     }
 }

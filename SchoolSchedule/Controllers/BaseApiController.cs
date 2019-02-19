@@ -34,7 +34,7 @@ namespace SchoolSchedule.Controllers
 
         [HttpGet]
         [Route("api/Schedule")]
-        public List<DayDto> GetSchedule(int groupId)
+        public List<LessonDto> GetSchedule(int groupId)
         {
             var schedule = GetLessonsOfGroup(groupId);
             return schedule;
@@ -42,46 +42,40 @@ namespace SchoolSchedule.Controllers
 
         [HttpGet]
         [Route("api/TSchedule")]
-        public List<DayDto> GetTSchedule(int teacherId)
+        public List<LessonDto> GetTSchedule(int teacherId)
         {
             var schedule = GetTLessonsOfTeacher(teacherId);
             return schedule;
         }
 
-        private List<DayDto> GetLessonsOfGroup(int groupId)
+        private List<LessonDto> GetLessonsOfGroup(int groupId)
         {
             return _db.Lessons.Where(x => !x.IsDeleted && x.SubjectGroup.GroupId == groupId)
                 .Include(x => x.SubjectGroup)
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectTeacher)
                 .Include(x => x.SubjectTeacher.Teacher)
-                .OrderBy(x => x.Order).ToList().GroupBy(x => x.WeekDay).Select(day => new DayDto
+                .OrderBy(x => x.Order).ToList().Select(x => new LessonDto
                 {
-                    WeekDay = day.Key,
-                    Lessons = day.Select(lesson => new LessonDto
-                    {
-                        Order = lesson.Order,
-                        SubjectName = lesson.SubjectGroup.Subject.NameKz,
-                        GroupOrTeacherName = lesson.SubjectTeacher.Teacher.DisplayName
-                    }).ToList()
+                    Order = x.Order,
+                    SubjectName = x.SubjectGroup.Subject.NameKz,
+                    GroupOrTeacherName = x.SubjectTeacher.Teacher.DisplayName,
+                    WeekDay = x.WeekDay
                 }).ToList();
         }
 
-        private List<DayDto> GetTLessonsOfTeacher(int teacherId)
+        private List<LessonDto> GetTLessonsOfTeacher(int teacherId)
         {
             return _db.Lessons.Where(x => !x.IsDeleted && x.SubjectTeacher.TeacherId == teacherId)
                 .Include(x => x.SubjectGroup)
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectGroup.Group)
-                .OrderBy(x => x.Order).ToList().GroupBy(x => x.WeekDay).Select(day => new DayDto
+                .OrderBy(x => x.Order).ToList().Select(x => new LessonDto
                 {
-                    WeekDay = day.Key,
-                    Lessons = day.Select(lesson => new LessonDto
-                    {
-                        Order = lesson.Order,
-                        SubjectName = lesson.SubjectGroup.Subject.NameKz,
-                        GroupOrTeacherName = lesson.SubjectGroup.Group.DisplayName
-                    }).ToList()
+                    Order = x.Order,
+                    SubjectName = x.SubjectGroup.Subject.NameKz,
+                    GroupOrTeacherName = x.SubjectGroup.Group.DisplayName,
+                    WeekDay = x.WeekDay
                 }).ToList();
         }
     }
