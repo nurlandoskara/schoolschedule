@@ -236,6 +236,10 @@
     <Compile Include="Migrations\201902191404493_WeekDay.Designer.cs">
       <DependentUpon>201902191404493_WeekDay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902221347528_AuditoryNumber.cs" />
+    <Compile Include="Migrations\201902221347528_AuditoryNumber.Designer.cs">
+      <DependentUpon>201902221347528_AuditoryNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Auditory.cs" />
@@ -399,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902191404493_WeekDay.resx">
       <DependentUpon>201902191404493_WeekDay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902221347528_AuditoryNumber.resx">
+      <DependentUpon>201902221347528_AuditoryNumber.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
