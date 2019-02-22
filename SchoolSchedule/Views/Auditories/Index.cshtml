@@ -15,6 +15,9 @@
         <tr>
             <th scope="col">#</th>
             <th>
+                Нөмірі
+            </th>
+            <th>
                 Аты
             </th>
             <th>Өшірілген</th>
@@ -32,6 +35,9 @@
         }
         <tr class="@rowClass">
             <th scope="row">@rowNumber</th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>

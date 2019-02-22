@@ -2,7 +2,8 @@
 {
     public class Auditory: BaseDbObject
     {
+        public int Number { get; set; }
         public string Name { get; set; }
-        public string DisplayName => Name;
+        public string DisplayName => $"{Number}, {Name}";
     }
 }

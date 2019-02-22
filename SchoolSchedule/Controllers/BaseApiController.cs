@@ -55,12 +55,14 @@ namespace SchoolSchedule.Controllers
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectTeacher)
                 .Include(x => x.SubjectTeacher.Teacher)
+                .Include(x => x.Auditory)
                 .OrderBy(x => x.Order).ToList().Select(x => new LessonDto
                 {
                     Order = x.Order,
                     SubjectName = x.SubjectGroup.Subject.NameKz,
                     GroupOrTeacherName = x.SubjectTeacher.Teacher.DisplayName,
-                    WeekDay = x.WeekDay
+                    WeekDay = x.WeekDay,
+                    AuditoryName = x.Auditory.DisplayName
                 }).ToList();
         }
 
@@ -70,12 +72,14 @@ namespace SchoolSchedule.Controllers
                 .Include(x => x.SubjectGroup)
                 .Include(x => x.SubjectGroup.Subject)
                 .Include(x => x.SubjectGroup.Group)
+                .Include(x => x.Auditory)
                 .OrderBy(x => x.Order).ToList().Select(x => new LessonDto
                 {
                     Order = x.Order,
                     SubjectName = x.SubjectGroup.Subject.NameKz,
                     GroupOrTeacherName = x.SubjectGroup.Group.DisplayName,
-                    WeekDay = x.WeekDay
+                    WeekDay = x.WeekDay,
+                    AuditoryName = x.Auditory.DisplayName
                 }).ToList();
         }
     }
