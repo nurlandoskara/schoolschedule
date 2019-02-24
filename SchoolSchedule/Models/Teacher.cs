@@ -9,6 +9,6 @@ namespace SchoolSchedule.Models
         public string PatronymicName { get; set; }
 
         [Description("Teacher Name")]
-        public string DisplayName => string.Concat(Firstname, ' ', Surname, ' ', PatronymicName);
+        public string DisplayName => string.Concat(Surname, ' ', Firstname, ' ', PatronymicName);
     }
 }

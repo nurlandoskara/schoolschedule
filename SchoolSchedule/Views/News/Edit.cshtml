@@ -13,13 +13,13 @@
         @Html.AntiForgeryToken()
         
 <div class="form-horizontal">
-    <h4>Аудиторияны өзгерту</h4>
+    <h4>Хабарландыруды өзгерту</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Title, "Аты", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Title, "Атауы", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
