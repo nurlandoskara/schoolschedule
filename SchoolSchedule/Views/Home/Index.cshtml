@@ -24,6 +24,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Уақыты</th>
                 <th>
                     Пән
                 </th>
@@ -38,21 +39,23 @@
         <tbody class="table-hover">
         @foreach (var day in days)
         {
+            var lessonTimes = Classes.LessonTimes();
             var rowNumber = 0;
-            <tr class="table-primary"><td colspan="4">@Html.Label(day.FirstOrDefault()?.Day)</td></tr>
-            foreach (var lesson in day.OrderBy(x => x.Order))
+            <tr class="table-primary"><td colspan="5">@Html.Label(day.FirstOrDefault()?.Day)</td></tr>
+            foreach (var lesson in day.GroupBy(x => x.Order).OrderBy(x => x.Key))
             {
                 rowNumber++;
             <tr>
                 <th scope="row">@rowNumber</th>
+                <th scope="row">@lessonTimes[rowNumber]</th>
                 <td>
-                    @Html.DisplayFor(modelItem => lesson.SubjectGroup.Subject.DisplayName)
+                    @Html.Label(string.Join(" / ", lesson.Select(x => x.SubjectGroup.Subject.DisplayName)))
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => lesson.SubjectTeacher.Teacher.DisplayName)
+                    @Html.Label(string.Join(" / ", lesson.Select(x => x.SubjectTeacher.Teacher.DisplayName)))
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => lesson.Auditory.DisplayName)
+                    @Html.Label(string.Join(" / ", lesson.Select(x => x.Auditory.DisplayName)))
                 </td>
             </tr>
             }

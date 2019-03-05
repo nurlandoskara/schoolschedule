@@ -221,7 +221,7 @@
     <Compile Include="Controllers\SubjectTeachersController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Controllers\AuditoriesController.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="Classes.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
