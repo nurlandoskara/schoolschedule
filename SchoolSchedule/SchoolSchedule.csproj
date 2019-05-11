@@ -291,6 +291,10 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\sabak-kestesi - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sabak-kestesi - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\sabakkestesi - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sabakkestesi - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\schoolschedule - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\schoolschedule - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\sschedule - Web Deploy.pubxml" />
